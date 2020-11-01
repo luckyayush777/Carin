@@ -1,49 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class UnitSelector : EventTrigger
-{ 
-    private bool dragging;
-    [SerializeField]
-    private float snappingOffset = 1.2f;
-    
-    // Start is called before the first frame update
-    void Start()
+public enum UnitType { 
+    MELEE = 0,
+    RANGED = 1
+}
+
+
+public class UnitSelector : MonoBehaviour
+{
+    public Unit MeleeUnit;
+    public GameObject MeleeUnitSpriteMini;
+    public Unit RangedUnit;
+    public GameObject RangedUnitSpriteMini;
+
+    Vector3 mousePosition = Vector3.zero;
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(TileBehaviour.cursorEmpty)
-        {
-            dragging = false;
-        }
+        MeleeUnitSpriteMini.transform.position = Input.mousePosition;
+    }
+
+    public void InitialiseMiniSprite(Unit unitType)
+    {
+        mousePosition = Input.mousePosition;
+        mousePosition.z = 10;
         
-        if(dragging)
+        switch (unitType.m_UnitID)
         {
-            transform.position = new Vector2(Input.mousePosition.x - snappingOffset, Input.mousePosition.y - snappingOffset);
+            case 0:
+                Instantiate(MeleeUnitSpriteMini, mousePosition, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(RangedUnitSpriteMini, mousePosition, Quaternion.identity);
+                break;
         }
     }
 
-    public void SelectUnit()
-    {
-        //Debug.Log("Button Clicked");
 
-        // unity event system
-        dragging = true;
-    }
-
-    public override void OnPointerDown(PointerEventData pointerData)
-    {
-        //pointerData.
-    }
-
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        //dragging = false;
-    }
 }

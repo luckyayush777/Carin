@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit
+public class Unit : MonoBehaviour
 {
-    public string m_UnitName;
+    public string m_unitName;
     public int m_UnitID;
 
-    public Unit(string name = "" , int UnitID = 0)
+    public void ShowInfo()
     {
-        m_UnitName = name;
-        m_UnitID = UnitID;
+        //Debug.Log(m_unitName + m_UnitID);
+
     }
 }
