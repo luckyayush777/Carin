@@ -21,13 +21,16 @@ public class BoardGenerator: MonoBehaviour
 
     private float spawnXPos;
     private float spawnYPos;
+    private int boardHeight = 8;
+    private int boardWidth = 8;
+    
 
 
 
 
     void Start()
     {
-        SetupBoard(8, 8);
+        SetupBoard(boardHeight, boardWidth);
     }
 
     // Update is called once per frame
@@ -49,7 +52,7 @@ public class BoardGenerator: MonoBehaviour
                 spawnXPos = firstTilePosition.x + xOffset;
                 Instantiate(TilePrimitive, new Vector3(spawnXPos, spawnYPos,
                     0.0f), Quaternion.identity, Board.transform);
-               
+
             }
             
         }
