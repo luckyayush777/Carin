@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4568452951719825421}
   - component: {fileID: 3949180702937543918}
+  - component: {fileID: -2090166044063079742}
   m_Layer: 0
   m_Name: Archer_idle_001 (2)
   m_TagString: Untagged
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9d4c8ed88d35dd04f99fcbb0ad035e58, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db6cb88fe69d9654eaa69d1b69f2d9ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,3 +83,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2090166044063079742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525338406137837452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4459bddf2f4053a459d0b728232b6928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

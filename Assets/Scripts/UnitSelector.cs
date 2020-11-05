@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum UnitType { 
-    MELEE = 0,
-    RANGED = 1
+    NO_UNIT = 0,
+    MELEE = 1,
+    RANGED = 2
 }
 
 
@@ -14,8 +15,9 @@ public class UnitSelector : MonoBehaviour
     public GameObject MeleeUnitSpriteMini;
     public Unit RangedUnit;
     public GameObject RangedUnitSpriteMini;
-
-    Vector3 mousePosition = Vector3.zero;
+    public static UnitType unitTypeInstantiated = UnitType.NO_UNIT;
+    public Sprite MeleeTileSprite;
+    public Sprite RangedTileSprite;
 
     private void Start()
     {
@@ -24,24 +26,29 @@ public class UnitSelector : MonoBehaviour
 
     private void Update()
     {
-        MeleeUnitSpriteMini.transform.position = Input.mousePosition;
+    
     }
 
     public void InitialiseMiniSprite(Unit unitType)
     {
-        mousePosition = Input.mousePosition;
-        mousePosition.z = 10;
-        
         switch (unitType.m_UnitID)
         {
-            case 0:
-                Instantiate(MeleeUnitSpriteMini, mousePosition, Quaternion.identity);
+            case 0: Instantiate(MeleeUnitSpriteMini, Vector3.zero, Quaternion.identity);
+                unitTypeInstantiated = UnitType.MELEE;
                 break;
-            case 1:
-                Instantiate(RangedUnitSpriteMini, mousePosition, Quaternion.identity);
+            case 1: Instantiate(RangedUnitSpriteMini,Vector3.zero, Quaternion.identity);
+                unitTypeInstantiated = UnitType.RANGED;
                 break;
         }
+
     }
 
-
+    public Sprite getTypeOfSprite()
+    {
+        if (unitTypeInstantiated == UnitType.MELEE)
+            return MeleeTileSprite;
+        else if (unitTypeInstantiated == UnitType.RANGED)
+            return RangedTileSprite;
+        else return null;
+    }
 }
