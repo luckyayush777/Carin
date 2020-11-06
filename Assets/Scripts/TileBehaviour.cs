@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileState
+{
+    EMPTY_TILE,
+
+}
+
 public class TileBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -14,7 +20,7 @@ public class TileBehaviour : MonoBehaviour
     {
         defaultColor = this.GetComponent<SpriteRenderer>().color;
         unitSelector = FindObjectOfType<UnitSelector>();
-        if(unitSelector == null)
+        if (unitSelector == null)
         {
             Debug.Log("could not find unit selector script");
         }
@@ -34,11 +40,15 @@ public class TileBehaviour : MonoBehaviour
     private void OnMouseDown()
     {
         Sprite spriteToUse = unitSelector.getTypeOfSprite();
-        GetComponent<SpriteRenderer>().sprite = spriteToUse;
-        Vector2 scale = transform.localScale;
-        scale.x *= (float)0.140453339;
-        scale.y *= (float)0.140453339;
-        transform.localScale = scale;
+        if (spriteToUse != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = spriteToUse;
+            Vector2 scale = transform.localScale;
+            // TO DO : remove hard coded values or find a new solution
+            scale.x *= (float)0.140453339;
+            scale.y *= (float)0.140453339;
+            transform.localScale = scale;
+        }
     }
 
     private void OnMouseOver()
