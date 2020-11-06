@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
 
     public void ShowInfo()
     {
-        //Debug.Log(m_unitName + m_UnitID);
+        Debug.Log(m_unitName + m_UnitID);
 
     }
 }
