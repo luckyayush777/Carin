@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
 {
     public int m_tileID;
     private static int countOfTiles = 1;
+    public bool allocatedToEnemy = false;
 
     public Tile(int tileID)
     {

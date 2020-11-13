@@ -18,6 +18,8 @@ public class UnitSelector : MonoBehaviour
     public static UnitType unitTypeInstantiated = UnitType.NO_UNIT;
     public Sprite MeleeTileSprite;
     public Sprite RangedTileSprite;
+    private GameObject SpriteOnPointer = null;
+    private GameObject spriteInUse;
 
     private void Start()
     {
@@ -26,21 +28,29 @@ public class UnitSelector : MonoBehaviour
 
     private void Update()
     {
-    
+        if(TileBehaviour.clickedTile)
+        {
+            Destroy(spriteInUse);
+        }
     }
 
     public void InitialiseMiniSprite(Unit unitType)
     {
         switch (unitType.m_UnitID)
         {
-            case 0: Instantiate(MeleeUnitSpriteMini, Vector3.zero, Quaternion.identity);
+            case 0: //Instantiate(MeleeUnitSpriteMini, Vector3.zero, Quaternion.identity);
+                SpriteOnPointer = MeleeUnitSpriteMini;
                 unitTypeInstantiated = UnitType.MELEE;
                 break;
-            case 1: Instantiate(RangedUnitSpriteMini,Vector3.zero, Quaternion.identity);
+            case 1: //Instantiate(RangedUnitSpriteMini,Vector3.zero, Quaternion.identity);
+                SpriteOnPointer = RangedUnitSpriteMini;
                 unitTypeInstantiated = UnitType.RANGED;
                 break;
         }
-
+        if (spriteInUse != null)
+            Destroy(spriteInUse);
+        spriteInUse = Instantiate(SpriteOnPointer, Vector3.zero, Quaternion.identity);
+      
     }
 
     public Sprite getTypeOfSprite()
@@ -50,5 +60,25 @@ public class UnitSelector : MonoBehaviour
         else if (unitTypeInstantiated == UnitType.RANGED)
             return RangedTileSprite;
         else return null;
+    }
+
+    public UnitType getUnitType()
+    {
+        return unitTypeInstantiated;
+    }
+
+    public Sprite getRandomSprite()
+    {
+        int randomNumber = Random.Range(0, (int)UnitType.RANGED);
+        if (randomNumber == 0)
+        {
+            return MeleeTileSprite;
+        }
+        else if (randomNumber == 1)
+        {
+            return RangedTileSprite;
+        }
+        else
+            return null;
     }
 }

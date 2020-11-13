@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 320025696654252634}
   m_Layer: 0
   m_Name: TilePrimitive
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06670a6a51a582c4e8d4c4607b89a23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileState: 0
   onHoveringColor: {r: 0.024362564, g: 0, b: 1, a: 1}
 --- !u!58 &5137205620684698626
 CircleCollider2D:
@@ -111,9 +112,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0, y: 0.0018031597}
   serializedVersion: 2
-  m_Radius: 0.12155591
+  m_Radius: 0.23103917
 --- !u!114 &320025696654252634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_tileID: 0
+  allocatedToEnemy: 0
