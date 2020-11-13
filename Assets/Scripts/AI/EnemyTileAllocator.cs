@@ -17,6 +17,7 @@ public class EnemyTileAllocator : MonoBehaviour
         Debug.Log(ListOfTiles.Count);
         AllocateEnemyTiles();
         ChangeColourOfEnemyTiles();
+        ChangeTileSpriteToRandomEnemySprite();
     }
     private void Awake()
     {
@@ -52,6 +53,14 @@ public class EnemyTileAllocator : MonoBehaviour
         for (int i = 0; i < UnitScripts.Count / 2; i++)
         {
             UnitScripts[i].allocatedToEnemy = true;
+        }
+    }
+
+    void ChangeTileSpriteToRandomEnemySprite()
+    {
+        for (int i = 0; i < ListOfTiles.Count / 2; i++)
+        {
+            ListOfTiles[i].sprite = FindObjectOfType<UnitSelector>().getRandomSprite();
         }
     }
 }

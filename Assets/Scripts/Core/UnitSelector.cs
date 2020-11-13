@@ -66,4 +66,19 @@ public class UnitSelector : MonoBehaviour
     {
         return unitTypeInstantiated;
     }
+
+    public Sprite getRandomSprite()
+    {
+        int randomNumber = Random.Range(0, (int)UnitType.RANGED);
+        if (randomNumber == 0)
+        {
+            return MeleeTileSprite;
+        }
+        else if (randomNumber == 1)
+        {
+            return RangedTileSprite;
+        }
+        else
+            return null;
+    }
 }
