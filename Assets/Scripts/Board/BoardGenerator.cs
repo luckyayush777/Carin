@@ -28,7 +28,7 @@ public class BoardGenerator: MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
         SetupBoard(boardHeight, boardWidth);
     }
