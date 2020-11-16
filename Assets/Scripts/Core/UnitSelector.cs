@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 public enum UnitType { 
     NO_UNIT = 0,
@@ -77,6 +79,21 @@ public class UnitSelector : MonoBehaviour
         else if (randomNumber == 1)
         {
             return RangedTileSprite;
+        }
+        else
+            return null;
+    }
+
+    public Tuple<int, Sprite> getRandomSpriteAndID()
+    {
+        int randomNumber = Random.Range(0, (int)UnitType.RANGED);
+        if (randomNumber == 0)
+        {
+            return Tuple.Create(0, MeleeTileSprite);
+        }
+        else if (randomNumber == 1)
+        {
+            return Tuple.Create(1, RangedTileSprite);
         }
         else
             return null;

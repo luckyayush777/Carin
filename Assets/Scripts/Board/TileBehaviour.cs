@@ -18,6 +18,8 @@ public class TileBehaviour : MonoBehaviour
     private UnitSelector unitSelector;
     public static bool clickedTile = false;
     private Tile tileInfo;
+    private UnitBehaviour unitBehaviour;
+    private UnitType unitTypeOnTile;
     void Start()
     {
         defaultColor = this.GetComponent<SpriteRenderer>().color;
@@ -27,6 +29,11 @@ public class TileBehaviour : MonoBehaviour
             Debug.Log("could not find unit selector script");
         }
         tileInfo = GetComponent<Tile>();
+        unitBehaviour = GetComponent<UnitBehaviour>();
+        if(unitBehaviour == null)
+        {
+            Debug.Log("could not find unit behaviour script");
+        }
     }
 
     // Update is called once per frame
@@ -38,27 +45,40 @@ public class TileBehaviour : MonoBehaviour
 
     private void OnClickEmptyTileBehaviour()
     {
-        clickedTile = true;
-        Sprite spriteToUse = unitSelector.getTypeOfSprite();
-        if (spriteToUse != null)
+        if (!tileInfo.allocatedToEnemy)
         {
-            //GetComponent<SpriteRenderer>().sprite = null;
-            GetComponent<SpriteRenderer>().sprite = spriteToUse;
-            Vector2 scale = transform.localScale;
-            scale.x = 1;
-            scale.y = 1;
-            transform.localScale = scale;
-            tileState = TileState.COVERED_TILE;
+            clickedTile = true;
+            Sprite spriteToUse = unitSelector.getTypeOfSprite();
+            if (spriteToUse != null)
+            {
+                //GetComponent<SpriteRenderer>().sprite = null;
+                GetComponent<SpriteRenderer>().sprite = spriteToUse;
+                tileState = TileState.COVERED_TILE;
+            }
+            if (unitSelector.getUnitType() == UnitType.MELEE)
+            {
+                unitBehaviour.m_unitID = 0;
+                unitBehaviour.m_unitName = "Melee";
+            }
+            else if (unitSelector.getUnitType() == UnitType.RANGED)
+            {
+                unitBehaviour.m_unitID = 1;
+                unitBehaviour.m_unitName = "Ranged";
+            }
         }
     }
     private void OnClickCoveredTileBehaviour()
     {
-        if(unitSelector.getUnitType() == UnitType.MELEE)
+        if (!tileInfo.allocatedToEnemy)
         {
-            Debug.Log(unitSelector.getUnitType());
-        }else if(unitSelector.getUnitType() == UnitType.RANGED)
-        {
-            Debug.Log(unitSelector.getUnitType());
+            if (unitSelector.getUnitType() == UnitType.MELEE)
+            {
+                Debug.Log(unitSelector.getUnitType());
+            }
+            else if (unitSelector.getUnitType() == UnitType.RANGED)
+            {
+                Debug.Log(unitSelector.getUnitType());
+            }
         }
     }
     private void OnMouseUp()
