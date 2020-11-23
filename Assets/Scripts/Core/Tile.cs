@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Tile : MonoBehaviour
 {
     public int m_tileID;
     private static int countOfTiles = 1;
     public bool allocatedToEnemy = false;
+    [SerializeField]
+    public BoardCoordinates boardCoordinates;
+    
+
 
     public Tile(int tileID)
     {
@@ -17,4 +23,11 @@ public class Tile : MonoBehaviour
     {
         this.m_tileID = countOfTiles++;
     }
+
+    private void Awake()
+    {
+        
+    }
+
+   
 }

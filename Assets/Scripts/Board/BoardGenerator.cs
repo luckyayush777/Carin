@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class BoardCoordinates
+{
+    public int xCoordinate;
+    public int yCoordinate;
+}
+
 public class BoardGenerator: MonoBehaviour
 {
     // Start is called before the first frame update
@@ -21,8 +28,12 @@ public class BoardGenerator: MonoBehaviour
 
     private float spawnXPos;
     private float spawnYPos;
-    private int boardHeight = 8;
-    private int boardWidth = 8;
+    public static int boardHeight = 8;
+    public static int boardWidth = 8;
+
+
+
+
     
 
 

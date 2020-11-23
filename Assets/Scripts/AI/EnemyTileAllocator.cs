@@ -10,9 +10,9 @@ public class EnemyTileAllocator : MonoBehaviour
     private Sprite enemyPrimitiveTileSprite = null;
     private List<UnitBehaviour> ListOfUnitBehaviours = new List<UnitBehaviour>();
     [SerializeField]
-    private Sprite meleeUnitSpriteToCheckAgainst;
+    private Sprite meleeUnitSpriteToCheckAgainst = null;
     [SerializeField]
-    private Sprite rangedUnitSpriteToCheckAgainst;
+    private Sprite rangedUnitSpriteToCheckAgainst = null;
 
 
 

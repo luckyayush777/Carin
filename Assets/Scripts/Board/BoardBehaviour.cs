@@ -4,17 +4,37 @@ using UnityEngine;
 
 public class BoardBehaviour : MonoBehaviour
 {
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    public static int xBoardCoordinate = 1;
+    public static int yBoardCoordinate = 1;
+
+    public List<Tile> listOfTiles = new List<Tile>();
+
+    private void Start()
     {
-        
+        InitialiseListOfTiles();
+        AllocateCoordinates();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitialiseListOfTiles()
     {
-        
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("Tile"))
+        {
+            listOfTiles.Add(g.GetComponent<Tile>());
+        }
+    }
+
+    private void AllocateCoordinates()
+    {
+        foreach(Tile tile in listOfTiles)
+        {
+            if (xBoardCoordinate % BoardGenerator.boardHeight == 0)
+                yBoardCoordinate++;
+            tile.boardCoordinates.yCoordinate = yBoardCoordinate;
+            tile.boardCoordinates.xCoordinate = xBoardCoordinate;
+            xBoardCoordinate++;
+            if (xBoardCoordinate == BoardGenerator.boardWidth)
+                xBoardCoordinate = 0;
+            
+        }
     }
 }

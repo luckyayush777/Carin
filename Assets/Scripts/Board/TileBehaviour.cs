@@ -19,10 +19,10 @@ public class TileBehaviour : MonoBehaviour
     public static bool clickedTile = false;
     private Tile tileInfo;
     private UnitBehaviour unitBehaviour;
-    private UnitType unitTypeOnTile;
-    void Start()
+    private AttackManager attackManager;
+    private void Awake()
     {
-        defaultColor = this.GetComponent<SpriteRenderer>().color;
+        attackManager = FindObjectOfType<AttackManager>();
         unitSelector = FindObjectOfType<UnitSelector>();
         if (unitSelector == null)
         {
@@ -30,16 +30,22 @@ public class TileBehaviour : MonoBehaviour
         }
         tileInfo = GetComponent<Tile>();
         unitBehaviour = GetComponent<UnitBehaviour>();
-        if(unitBehaviour == null)
+        if (unitBehaviour == null)
         {
             Debug.Log("could not find unit behaviour script");
         }
+    }
+    void Start()
+    {
+        defaultColor = GetComponent<SpriteRenderer>().color;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         clickedTile = false;
+        Die();
     }
     
 
@@ -51,7 +57,6 @@ public class TileBehaviour : MonoBehaviour
             Sprite spriteToUse = unitSelector.getTypeOfSprite();
             if (spriteToUse != null)
             {
-                //GetComponent<SpriteRenderer>().sprite = null;
                 GetComponent<SpriteRenderer>().sprite = spriteToUse;
                 tileState = TileState.COVERED_TILE;
             }
@@ -67,23 +72,10 @@ public class TileBehaviour : MonoBehaviour
             }
         }
     }
-    private void OnClickCoveredTileBehaviour()
-    {
-        if (!tileInfo.allocatedToEnemy)
-        {
-            if (unitSelector.getUnitType() == UnitType.MELEE)
-            {
-                Debug.Log(unitSelector.getUnitType());
-            }
-            else if (unitSelector.getUnitType() == UnitType.RANGED)
-            {
-                Debug.Log(unitSelector.getUnitType());
-            }
-        }
-    }
+ 
     private void OnMouseUp()
     {
-        //clickedTile = false;
+        
     }
 
     private void OnMouseDown()
@@ -92,9 +84,17 @@ public class TileBehaviour : MonoBehaviour
         OnClickEmptyTileBehaviour();
         else if(tileState == TileState.COVERED_TILE)
         {
-            OnClickCoveredTileBehaviour();
+            if (!tileInfo.allocatedToEnemy)
+            {
+                SetAttributesOfTileAttacker();
+               
+            }
         }
-        
+        if (tileInfo.allocatedToEnemy)
+        {
+            SetAttributesOfTileAttacked();
+            
+        }
     }
 
     private void OnMouseOver()
@@ -107,6 +107,27 @@ public class TileBehaviour : MonoBehaviour
     {
         if(!tileInfo.allocatedToEnemy)
         GetComponent<SpriteRenderer>().color = defaultColor;
+    }
+
+    private void SetAttributesOfTileAttacker()
+    {
+        attackManager.SetAttackerTileInstance(unitBehaviour);
+        attackManager.SetAttackerTileInfo(tileInfo);
+    }
+
+    private void SetAttributesOfTileAttacked()
+    {
+        attackManager.SetAttackedTileInfo(tileInfo);
+        attackManager.SetAttackedTileInstance(unitBehaviour);
+    }
+
+    private void Die()
+    {
+        if(unitBehaviour.health == 0)
+        {
+            Debug.Log("DIED!");
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
     }
 
 }
