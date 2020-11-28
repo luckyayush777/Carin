@@ -20,6 +20,8 @@ public class TileBehaviour : MonoBehaviour
     private Tile tileInfo;
     private UnitBehaviour unitBehaviour;
     private AttackManager attackManager;
+    public delegate void OnDeath();
+    public static event OnDeath death;
     private void Awake()
     {
         attackManager = FindObjectOfType<AttackManager>();
@@ -124,9 +126,8 @@ public class TileBehaviour : MonoBehaviour
     private void Die()
     {
         if(unitBehaviour.health == 0)
-        {
-            Debug.Log("DIED!");
-            GetComponent<SpriteRenderer>().sprite = null;
+        { 
+            death?.Invoke();
         }
     }
 

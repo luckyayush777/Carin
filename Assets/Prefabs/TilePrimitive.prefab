@@ -130,6 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_tileID: 0
   allocatedToEnemy: 0
+  boardCoordinates:
+    xCoordinate: 0
+    yCoordinate: 0
 --- !u!114 &7959719097932476781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8474b4e2d2bb6884d8740e8c4e3971de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_unitID: 0
+  m_unitName: 
+  health: 20
+  attackDamage: 10

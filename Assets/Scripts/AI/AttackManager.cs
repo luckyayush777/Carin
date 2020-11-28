@@ -12,6 +12,7 @@ public class AttackManager : MonoBehaviour
     private UnitBehaviour m_attackedTileInstance = null;
     private Tile m_attackerTileInfo = null;
     private Tile m_attackedTileInfo = null;
+    public static bool unitDied = false;
 
     public void SetAttackerTileInstance(UnitBehaviour attackerTileInstance)
     {
@@ -73,17 +74,33 @@ public class AttackManager : MonoBehaviour
         {
             if(MeleeAttackSequencePreReq())
             {
-                m_attackedTileInstance.health -= m_attackerTileInstance.attackDamage;
-                Debug.Log("attacked");
+                if (m_attackedTileInstance.m_unitName == "Ranged") 
+                {
+                    m_attackedTileInstance.health -= m_attackerTileInstance.attackDamage * 2;
+                }
+                else if (m_attackedTileInstance.m_unitName == "Melee")
+                {
+                    m_attackedTileInstance.health -= m_attackerTileInstance.attackDamage;
+                }
             }
         }
         if (m_attackerTileInstance.m_unitName == "Ranged")
         {
-            if (RangedAttackSequencePreReq())
+            if (m_attackedTileInstance.m_unitName == "Ranged")
             {
                 m_attackedTileInstance.health -= m_attackerTileInstance.attackDamage;
-                Debug.Log("attacked");
             }
+            else if (m_attackedTileInstance.m_unitName == "Melee")
+            {
+                m_attackedTileInstance.health -= m_attackerTileInstance.attackDamage * 2;
+            }
+        }
+        if(m_attackedTileInstance.health == 0)
+        {
+            unitDied = true;
+            m_attackedTileInstance.GetComponent<SpriteRenderer>().sprite = null;
+            m_attackedTileInstance.ResetAttributes();
+            m_attackedTileInstance.GetComponent<Tile>().allocatedToEnemy = false;
         }
     }
 
@@ -106,8 +123,7 @@ public class AttackManager : MonoBehaviour
 
     private bool RangedAttackSequencePreReq()
     {
-        return (m_attackedTileInfo.boardCoordinates.yCoordinate == m_attackerTileInfo.boardCoordinates.yCoordinate - 1
-            || m_attackedTileInfo.boardCoordinates.yCoordinate == m_attackerTileInfo.boardCoordinates.yCoordinate - 2);
+        return true;
     }
 
 
