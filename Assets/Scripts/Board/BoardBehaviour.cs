@@ -39,14 +39,18 @@ public class BoardBehaviour : MonoBehaviour
     {
         foreach(Tile tile in listOfTiles)
         {
-            if (xBoardCoordinate % BoardGenerator.boardHeight == 0)
-                yBoardCoordinate++;
-            tile.boardCoordinates.yCoordinate = yBoardCoordinate;
             tile.boardCoordinates.xCoordinate = xBoardCoordinate;
+            tile.boardCoordinates.yCoordinate = yBoardCoordinate;
             xBoardCoordinate++;
-            if (xBoardCoordinate == BoardGenerator.boardWidth)
-                xBoardCoordinate = 0;
-            
+            if (xBoardCoordinate > BoardGenerator.boardWidth)
+            {
+                yBoardCoordinate++;
+            }
+
+            if (xBoardCoordinate > BoardGenerator.boardWidth)
+            {
+                xBoardCoordinate = xBoardCoordinate % BoardGenerator.boardWidth;
+            }
         }
     }
 

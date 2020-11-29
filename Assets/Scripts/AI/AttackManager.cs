@@ -13,6 +13,9 @@ public class AttackManager : MonoBehaviour
     private Tile m_attackerTileInfo = null;
     private Tile m_attackedTileInfo = null;
     public static bool unitDied = false;
+    [SerializeField]
+    private Sprite PlayerTilePrimitive = null;
+
 
     public void SetAttackerTileInstance(UnitBehaviour attackerTileInstance)
     {
@@ -59,10 +62,13 @@ public class AttackManager : MonoBehaviour
             if(!attackInitiatedOnce)
             InitAttackSequence();
             attackInitiatedOnce = true;
+            
             attackDuration += Time.deltaTime;
         }
         if(attackDuration >= 1.0f)
         {
+            if (m_attackedTileInstance.health == 0)
+                SetAttributesCapturedTiles(m_attackedTileInstance);
             ResetAttackSequence();
             attackDuration = 0.0f;
         }
@@ -98,7 +104,7 @@ public class AttackManager : MonoBehaviour
         if(m_attackedTileInstance.health == 0)
         {
             unitDied = true;
-            m_attackedTileInstance.GetComponent<SpriteRenderer>().sprite = null;
+            m_attackedTileInstance.GetComponent<SpriteRenderer>().sprite = PlayerTilePrimitive;
             m_attackedTileInstance.ResetAttributes();
             m_attackedTileInstance.GetComponent<Tile>().allocatedToEnemy = false;
         }
@@ -124,6 +130,19 @@ public class AttackManager : MonoBehaviour
     private bool RangedAttackSequencePreReq()
     {
         return true;
+    }
+
+    private void SetAttributesCapturedTiles(UnitBehaviour unitBehaviour)
+    {
+        switch (unitBehaviour.m_unitID)
+        {
+            case 0: unitBehaviour.health = 40;
+                unitBehaviour.attackDamage = 10;
+                break;
+            case 1: unitBehaviour.health = 40;
+                unitBehaviour.attackDamage = 10;
+                break;
+        }
     }
 
 
