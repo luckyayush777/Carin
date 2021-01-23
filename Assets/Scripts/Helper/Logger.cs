@@ -8,4 +8,9 @@ public static class Logger
     {
         return message;
     }
+    
+    public int ReturnErrorCode()
+    {
+        return 1;
+    }
 }
