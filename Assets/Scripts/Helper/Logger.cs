@@ -4,5 +4,8 @@ using UnityEngine;
 
 public static class Logger
 {
-  
+    public string returnString(string message)
+    {
+        return message;
+    }
 }
